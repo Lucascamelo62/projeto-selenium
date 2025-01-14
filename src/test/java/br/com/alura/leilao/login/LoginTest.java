@@ -20,4 +20,18 @@ public class LoginTest {
 		browser.quit();
 	}
 	
+	@Test
+	public void loginInvalido() {
+		System.setProperty("webdriver.chrome.driver", "/Users/Foton/Projetos/projeto-selenium/drivers/chromedriver.exe");
+		ChromeDriver browser = new ChromeDriver();
+		browser.navigate().to("http://localhost:8080/login");
+		browser.findElement(By.id("username")).sendKeys("login_errado");
+		browser.findElement(By.id("password")).sendKeys("teste");
+		browser.findElement(By.id("login-submit")).click();
+		Assert.assertTrue(browser.getCurrentUrl().equals("http://localhost:8080/login?error"));
+		Assert.assertTrue(browser.getPageSource().contains("Usuário e senha inválidos."));
+		
+		browser.quit();
+	}
+	
 }
