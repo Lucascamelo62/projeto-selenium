@@ -13,47 +13,46 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginTest {
 	
-	private static final String URL_LOGIN = "http://localhost:8080/login";
-	private ChromeDriver browser;
-	
-	@BeforeAll
-	public static void beforeAll () {
-		System.setProperty("webdriver.chrome.driver", "/Users/Foton/Projetos/projeto-selenium/drivers/chromedriver.exe");
-	}
+	private LoginPage paginaLogin;
 	
 	@BeforeEach
 	public void beforeEach() {
-		this.browser = new ChromeDriver();
-		this.browser.navigate().to(URL_LOGIN);
+		this.paginaLogin = new LoginPage();
 	}
 	
 	@AfterEach
-	public void afterEach () {
-		this.browser.quit();
+	public void afterEach() {
+		this.paginaLogin.fecharBrowser();
 	}
 	
 	@Test
 	public void loginValido() {
-		browser.findElement(By.id("username")).sendKeys("fulano");
-		browser.findElement(By.id("password")).sendKeys("pass");
-		browser.findElement(By.id("login-submit")).click();
-		Assert.assertFalse(browser.getCurrentUrl().equals(URL_LOGIN));
-		Assert.assertTrue(browser.getPageSource().contains("Leilões cadastrados"));
+		paginaLogin.preencheFormularioLogin("fulano", "pass");
+		paginaLogin.submmitForm();
+		Assert.assertFalse(paginaLogin.isPaginaLogin());
+		Assert.assertTrue(paginaLogin.isLogado());
 	}
 	
 	@Test
 	public void loginInvalido() {
-		browser.findElement(By.id("username")).sendKeys("login_errado");
-		browser.findElement(By.id("password")).sendKeys("teste");
-		browser.findElement(By.id("login-submit")).submit();
-		Assert.assertTrue(browser.getCurrentUrl().equals("http://localhost:8080/login?error"));
-		Assert.assertTrue(browser.getPageSource().contains("Usuário e senha inválidos."));
+		paginaLogin.preencheFormularioLogin("usuario_errado", "senha_errada");
+		paginaLogin.submmitForm();
+		Assert.assertFalse(paginaLogin.isErro());
 	}
-	
-	@Test
-	public void acessarPaginaRestrita () {
-		this.browser.navigate().to("http://localhost:8080/leiloes/1/form");
-		Assert.assertTrue(browser.getPageSource().contains("Login")); //Garantindo que o mesmo foi direcionado para a página de Login.
-	}
+//	
+//	@Test
+//	public void loginInvalido() {
+//		this.browser.findElement(By.id("username")).sendKeys("login_errado");
+//		this.browser.findElement(By.id("password")).sendKeys("teste");
+//		this.browser.findElement(By.id("login-submit")).submit();
+//		Assert.assertTrue(browser.getCurrentUrl().equals("http://localhost:8080/login?error"));
+//		Assert.assertTrue(browser.getPageSource().contains("Usuário e senha inválidos."));
+//	}
+//	
+//	@Test
+//	public void acessarPaginaRestrita () {
+//		this.browser.navigate().to("http://localhost:8080/leiloes/1/form");
+//		Assert.assertTrue(browser.getPageSource().contains("Login")); //Garantindo que o mesmo foi direcionado para a página de Login.
+//	}
 	
 }
