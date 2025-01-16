@@ -43,21 +43,5 @@ public class LoginTest {
 	@Test
 	public void acessarPaginaRestrita() {
 		Assert.assertTrue(paginaLogin.isLogin());
-	}
-//	
-//	@Test
-//	public void loginInvalido() {
-//		this.browser.findElement(By.id("username")).sendKeys("login_errado");
-//		this.browser.findElement(By.id("password")).sendKeys("teste");
-//		this.browser.findElement(By.id("login-submit")).submit();
-//		Assert.assertTrue(browser.getCurrentUrl().equals("http://localhost:8080/login?error"));
-//		Assert.assertTrue(browser.getPageSource().contains("Usuário e senha inválidos."));
-//	}
-//	
-//	@Test
-//	public void acessarPaginaRestrita () {
-//		this.browser.navigate().to("http://localhost:8080/leiloes/1/form");
-//		Assert.assertTrue(browser.getPageSource().contains("Login")); //Garantindo que o mesmo foi direcionado para a página de Login.
-//	}
-	
+	}	
 }
