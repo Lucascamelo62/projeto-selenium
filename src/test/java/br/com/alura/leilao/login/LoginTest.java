@@ -37,7 +37,12 @@ public class LoginTest {
 	public void loginInvalido() {
 		paginaLogin.preencheFormularioLogin("usuario_errado", "senha_errada");
 		paginaLogin.submmitForm();
-		Assert.assertFalse(paginaLogin.isErro());
+		Assert.assertTrue(paginaLogin.isErro());
+	}
+	
+	@Test
+	public void acessarPaginaRestrita() {
+		Assert.assertTrue(paginaLogin.isLogin());
 	}
 //	
 //	@Test

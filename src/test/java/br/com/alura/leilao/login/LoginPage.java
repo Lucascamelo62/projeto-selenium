@@ -15,7 +15,6 @@ public class LoginPage {
 		System.setProperty("webdriver.chrome.driver", "/Users/Foton/Projetos/projeto-selenium/drivers/chromedriver.exe");
 		this.browser = new ChromeDriver();
 		this.browser.navigate().to(URL_LOGIN);
-		
 	}
 
 	public void fecharBrowser() {
@@ -42,5 +41,10 @@ public class LoginPage {
 	public boolean isErro() {
 		return ((this.browser.getCurrentUrl().equals("http://localhost:8080/login?error")) && (browser.getPageSource().contains("Usuário e senha inválidos.")));
 		
+	}
+
+	public boolean isLogin() {
+		this.browser.navigate().to("http://localhost:8080/leiloes/1/form");
+		return this.browser.getPageSource().contains("Login");
 	}
 }
