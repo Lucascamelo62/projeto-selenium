@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import br.com.alura.leilao.leiloes.LeiloesPage;
+
 public class LoginPage {
 	
 	private static final String URL_LOGIN = "http://localhost:8080/login";
@@ -26,8 +28,9 @@ public class LoginPage {
 		this.browser.findElement(By.id("password")).sendKeys(senha);
 	}
 
-	public void submmitForm() {
+	public LeiloesPage submmitForm() {
 		this.browser.findElement(By.id("login-submit")).click();
+		return new LeiloesPage(browser);
 	}
 
 	public boolean isPaginaLogin() {
